@@ -1,5 +1,7 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Button } from '~/components/ui/button';
 import {
   Dialog,
@@ -14,19 +16,42 @@ import {
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 
-export function DialogPage() {
+interface IProps {
+  children: React.ReactNode;
+  isHasHeader: boolean;
+  headerTitle?: string;
+}
+
+export function DialogPage(props: IProps) {
+  const { isHasHeader, headerTitle } = props;
+  const [open, setOpen] = useState(false);
+  const searchParams = useSearchParams();
+  const isOpenModal = searchParams.get('modal-dialog');
+
+  useEffect(() => {
+    if (isOpenModal === 'true') {
+      console.log('runn');
+      const handleOpen = () => {
+        setOpen(true);
+      };
+      handleOpen();
+    }
+  }, [isOpenModal]);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Edit Profile</Button>
+        <Button onClick={() => console.log('hello')}>Edit Profile</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
-          </DialogDescription>
-        </DialogHeader>
+        {isHasHeader && (
+          <DialogHeader>
+            <DialogTitle>{headerTitle}</DialogTitle>
+            <DialogDescription>
+              Make changes to your profile here. Click save when you're done.
+            </DialogDescription>
+          </DialogHeader>
+        )}
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
