@@ -1,3 +1,5 @@
+import { DialogPage } from '~/components/shared/zahir-dialog';
+
 const getData = async () => {
   try {
     const res = await fetch(
@@ -16,6 +18,9 @@ export default async function Root() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <center>
         <h1>Hello world</h1>
+        <DialogPage isHasHeader headerTitle="lorem ipsum dolor sit amet">
+          <div>Testing</div>
+        </DialogPage>
       </center>
     </main>
   );
