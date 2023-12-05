@@ -1,27 +1,47 @@
-import { DialogPage } from '~/components/shared/zahir-dialog';
+'use client';
 
-const getData = async () => {
-  try {
-    const res = await fetch(
-      'https://jsonplaceholder.typicode.com/posts?_limit=10',
-    );
-    return await res.json();
-  } catch (error) {
-    console.log(error);
-  }
-};
+import { Suspense } from 'react';
+import { Button } from '~/components/ui/button';
+import { Icons } from '~/components/icons/spinner';
+import { useSearchParams, useRouter } from 'next/navigation';
 
-export default async function Root() {
-  const data = await getData();
-  console.log(data);
+import ExampleDialog from '~/components/shared/dialog.example';
+import ListExample from '~/components/shared/list.example';
+
+export default function Root() {
+  const router = useRouter();
+  const params = useSearchParams();
+  const isOpen = params.get('modal');
+
+  const handleOpen = (): void => {
+    router.push('?modal=true');
+  };
+
+  const handleClose = (): void => {
+    router.back();
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <center>
-        <h1>Hello world</h1>
-        <DialogPage isHasHeader headerTitle="lorem ipsum dolor sit amet">
-          <div>Testing</div>
-        </DialogPage>
+        <h1>Lorem ipsum dolor sit amet!</h1>
+        <div>
+          <Button onClick={handleOpen}>Toggle</Button>
+        </div>
+        {isOpen === 'true' && (
+          <ExampleDialog onClose={handleClose}>
+            <div>yey🚀</div>
+          </ExampleDialog>
+        )}
       </center>
+
+      <Suspense
+        fallback={
+          <Icons.spinner className="h-[100px] w-[100px] animate-spin" />
+        }
+      >
+        <ListExample />
+      </Suspense>
     </main>
   );
 }

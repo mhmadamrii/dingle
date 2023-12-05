@@ -1,10 +1,35 @@
+'use client';
+
+import { useSearchParams, useRouter } from 'next/navigation';
+import { Button } from '~/components/ui/button';
+import ExampleDialog from '~/components/shared/dialog.example';
+
 export default function SignIn() {
-    return (
-        <div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi architecto explicabo odit laborum magni doloremque, dolore accusantium quaerat rerum quos, totam molestias provident ducimus exercitationem voluptate consequatur reprehenderit ullam rem!</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi architecto explicabo odit laborum magni doloremque, dolore accusantium quaerat rerum quos, totam molestias provident ducimus exercitationem voluptate consequatur reprehenderit ullam rem!</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi architecto explicabo odit laborum magni doloremque, dolore accusantium quaerat rerum quos, totam molestias provident ducimus exercitationem voluptate consequatur reprehenderit ullam rem!</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi architecto explicabo odit laborum magni doloremque, dolore accusantium quaerat rerum quos, totam molestias provident ducimus exercitationem voluptate consequatur reprehenderit ullam rem!</p>
-        </div>
-    )
+  const router = useRouter();
+  const params = useSearchParams();
+  const isOpen = params.get('modal');
+
+  const handleOpen = (): void => {
+    router.push('?modal=true');
+  };
+
+  const handleClose = (): void => {
+    router.back();
+  };
+
+  return (
+    <>
+      <div>some text</div>
+
+      <div>
+        <Button onClick={handleOpen}>Toggle</Button>
+      </div>
+
+      {isOpen === 'true' && (
+        <ExampleDialog onClose={handleClose}>
+          <div>yey🚀</div>
+        </ExampleDialog>
+      )}
+    </>
+  );
 }
