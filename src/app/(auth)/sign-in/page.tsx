@@ -21,7 +21,7 @@ export default function SignIn() {
     <>
       <div>some text</div>
 
-      <div>
+      <div data-testId="div-btn">
         <Button onClick={handleOpen}>Toggle</Button>
       </div>
 

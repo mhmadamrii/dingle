@@ -1,3 +1,3 @@
 export default function SignUp() {
-  return <div>sign up</div>;
+  return <div data-testid="el">sign up</div>;
 }
