@@ -40,7 +40,8 @@ export default function Root() {
           <Icons.spinner className="h-[100px] w-[100px] animate-spin" />
         }
       >
-        <ListExample />
+        {/* <ListExample /> */}
+        <h1>Lis example</h1>
       </Suspense>
     </main>
   );
