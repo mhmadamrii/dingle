@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { Loader2, PlusCircle } from 'lucide-react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Course } from '@prisma/client';
+import { Chapter, Course } from '@prisma/client';
 import { ChaptersList } from './chapter-list';
 
 import {
@@ -25,7 +25,7 @@ import { cn } from '~/lib/utils';
 import { Input } from '~/components/ui/input';
 
 interface ChaptersFormProps {
-  initialData: Course & { chapters: any[] };
+  initialData: Course & { chapters: Chapter[] };
   courseId: string;
 }
 
@@ -151,13 +151,13 @@ export const ChaptersForm = ({
       )}
       {!isCreating && (
         <div
-        // className={cn(
-        //   'mt-2 text-sm',
-        //   !initialData.chapters.length &&
-        //     'italic text-slate-500',
-        // )}
+          className={cn(
+            'mt-2 text-sm',
+            !initialData.chapters.length &&
+              'italic text-slate-500',
+          )}
         >
-          {/* {!initialData.chapters.length && 'No chapters'} */}
+          {!initialData.chapters.length && 'No chapters'}
           <ChaptersList
             onEdit={onEdit}
             onReorder={onReorder}

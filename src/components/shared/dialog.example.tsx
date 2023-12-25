@@ -25,7 +25,9 @@ function ExampleDialog({
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Dialog Title</DialogTitle>
-          <DialogDescription>Dialog Description</DialogDescription>
+          <DialogDescription>
+            Dialog Description
+          </DialogDescription>
         </DialogHeader>
         <div>{children}</div>
         <DialogFooter>
@@ -36,4 +38,7 @@ function ExampleDialog({
   );
 }
 
-export default dynamic(() => Promise.resolve(ExampleDialog), { ssr: false });
+export default dynamic(
+  () => Promise.resolve(ExampleDialog),
+  { ssr: false },
+);

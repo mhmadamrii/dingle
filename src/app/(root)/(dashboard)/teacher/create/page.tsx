@@ -39,13 +39,17 @@ const CreatePage = () => {
 
   const { isSubmitting, isValid } = form.formState;
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log('valuesnya', values);
-    console.log('function triggered');
+  const onSubmit = async (
+    values: z.infer<typeof formSchema>,
+  ) => {
     try {
-      const response = await axios.post('/api/courses', values);
-      console.log('response', response);
-      router.push(`/teacher/courses/${response.data.result.id}`);
+      const response = await axios.post(
+        '/api/courses',
+        values,
+      );
+      router.push(
+        `/teacher/courses/${response.data.result.id}`,
+      );
       toast.success('Course created');
     } catch (error) {
       console.log('fucking error', error);
@@ -58,8 +62,8 @@ const CreatePage = () => {
       <div>
         <h1 className="text-2xl">Name your course</h1>
         <p className="text-sm text-slate-600">
-          What would you like to name your course? Don&apos;t worry, you can
-          change this later.
+          What would you like to name your course?
+          Don&apos;t worry, you can change this later.
         </p>
         <Form {...form}>
           <form
@@ -92,7 +96,10 @@ const CreatePage = () => {
                   Cancel
                 </Button>
               </Link>
-              <Button type="submit" disabled={!isValid || isSubmitting}>
+              <Button
+                type="submit"
+                disabled={!isValid || isSubmitting}
+              >
                 Continue
               </Button>
             </div>

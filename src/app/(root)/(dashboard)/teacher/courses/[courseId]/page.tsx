@@ -11,6 +11,7 @@ import { IconBadge } from '~/components/icon-badge';
 import { ChaptersForm } from './_components/chapter-form';
 import { AttachmentForm } from './_components/attachment-form';
 import { PriceForm } from './_components/price-form';
+import { callHello } from '~/actions/hello';
 
 import {
   CircleDollarSign,
@@ -18,6 +19,7 @@ import {
   ListChecks,
   File,
 } from 'lucide-react';
+import { Button } from '~/components/ui/button';
 
 export default async function CourseId({
   params,
@@ -33,6 +35,19 @@ export default async function CourseId({
   const course = await db.course.findUnique({
     where: {
       id: params.courseId,
+      userId,
+    },
+    include: {
+      chapters: {
+        orderBy: {
+          position: 'asc',
+        },
+      },
+      attachments: {
+        orderBy: {
+          createdAt: 'desc',
+        },
+      },
     },
   });
 
@@ -52,6 +67,7 @@ export default async function CourseId({
     course.imageUrl,
     course.price,
     course.categoryId,
+    course.chapters.some((chapter) => chapter.isPublished),
   ];
 
   const totalFields = requiredFields.length;
@@ -143,10 +159,10 @@ export default async function CourseId({
                   Resources & Attachments
                 </h2>
               </div>
-              {/* <AttachmentForm
+              <AttachmentForm
                 initialData={course}
                 courseId={course.id}
-              /> */}
+              />
             </div>
           </div>
         </div>

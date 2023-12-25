@@ -19,6 +19,7 @@ import { useRouter } from 'next/navigation';
 import { Attachment, Course } from '@prisma/client';
 import { Button } from '~/components/ui/button';
 import { FileUpload } from '~/components/file-upload';
+import { cn } from '~/lib/utils';
 
 interface AttachmentFormProps {
   initialData: Course & { attachments: Attachment[] };
@@ -103,7 +104,11 @@ export const AttachmentForm = ({
                   className="flex w-full items-center rounded-md border border-sky-200 bg-sky-100 p-3 text-sky-700"
                 >
                   <File className="mr-2 h-4 w-4 flex-shrink-0" />
-                  <p className="line-clamp-1 text-xs">
+                  <p
+                    className={cn('line-clamp-1 text-xs', {
+                      hidden: !!deletingId,
+                    })}
+                  >
                     {attachment.name}
                   </p>
                   {deletingId === attachment.id && (

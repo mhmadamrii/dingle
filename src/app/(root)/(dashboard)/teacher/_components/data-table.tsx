@@ -35,10 +35,10 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
+  const [sorting, setSorting] =
+    React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] =
+    React.useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
     data,
@@ -60,9 +60,15 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center justify-between py-4">
         <Input
           placeholder="Filter courses..."
-          value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
+          value={
+            (table
+              .getColumn('title')
+              ?.getFilterValue() as string) ?? ''
+          }
           onChange={(event) =>
-            table.getColumn('title')?.setFilterValue(event.target.value)
+            table
+              .getColumn('title')
+              ?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -98,7 +104,9 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
+                  data-state={
+                    row.getIsSelected() && 'selected'
+                  }
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
