@@ -8,35 +8,37 @@ import { Pencil } from 'lucide-react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { Course } from '@prisma/client';
+import { Chapter } from '@prisma/client';
 
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormMessage,
 } from '~/components/ui/form';
 import { Button } from '~/components/ui/button';
 import { cn } from '~/lib/utils';
-import { Textarea } from '~/components/ui/textarea';
-import { Combobox } from '~/components/ui/combobox';
+import { Editor } from '~/components/editor';
+import { Preview } from '~/components/preview';
+import { Checkbox } from '~/components/ui/checkbox';
 
-interface CategoryFormProps {
-  initialData: Course;
+interface ChapterAccessFormProps {
+  initialData: Chapter;
   courseId: string;
-  options: { label: string; value: string }[];
+  chapterId: string;
 }
 
 const formSchema = z.object({
-  categoryId: z.string().min(1),
+  isFree: z.boolean().default(false),
 });
 
-export const CategoryForm = ({
+export const ChapterAccessForm = ({
   initialData,
   courseId,
-  options,
-}: CategoryFormProps) => {
+  chapterId,
+}: ChapterAccessFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () =>
@@ -47,7 +49,7 @@ export const CategoryForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      categoryId: initialData?.categoryId || '',
+      isFree: !!initialData.isFree,
     },
   });
 
@@ -57,8 +59,11 @@ export const CategoryForm = ({
     values: z.infer<typeof formSchema>,
   ) => {
     try {
-      await axios.patch(`/api/courses/${courseId}`, values);
-      toast.success('Course updated');
+      await axios.patch(
+        `/api/courses/${courseId}/chapters/${chapterId}`,
+        values,
+      );
+      toast.success('Chapter updated');
       toggleEdit();
       router.refresh();
     } catch {
@@ -66,21 +71,17 @@ export const CategoryForm = ({
     }
   };
 
-  const selectedOption = options.find(
-    (option) => option.value === initialData.categoryId,
-  );
-
   return (
     <div className="mt-6 rounded-md border bg-slate-100 p-4">
       <div className="flex items-center justify-between font-medium">
-        Course category
+        Chapter access
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
           ) : (
             <>
               <Pencil className="mr-2 h-4 w-4" />
-              Edit category
+              Edit access
             </>
           )}
         </Button>
@@ -89,11 +90,14 @@ export const CategoryForm = ({
         <p
           className={cn(
             'mt-2 text-sm',
-            !initialData.categoryId &&
-              'italic text-slate-500',
+            !initialData.isFree && 'italic text-slate-500',
           )}
         >
-          {selectedOption?.label || 'No category'}
+          {initialData.isFree ? (
+            <>This chapter is free for preview.</>
+          ) : (
+            <>This chapter is not free.</>
+          )}
         </p>
       )}
       {isEditing && (
@@ -104,16 +108,21 @@ export const CategoryForm = ({
           >
             <FormField
               control={form.control}
-              name="categoryId"
+              name="isFree"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                   <FormControl>
-                    <Combobox
-                      options={options}
-                      {...field}
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <div className="space-y-1 leading-none">
+                    <FormDescription>
+                      Check this box if you want to make
+                      this chapter free for preview
+                    </FormDescription>
+                  </div>
                 </FormItem>
               )}
             />

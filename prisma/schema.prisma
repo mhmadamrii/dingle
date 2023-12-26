@@ -42,11 +42,11 @@ model Attachment {
   url                 String    @db.Text
 
   // cara relasi seperti ini
-  courseId          String
-  course            Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId            String
+  course              Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
 
   @@index([courseId])
 }
@@ -64,10 +64,10 @@ model Chapter {
   courseId            String
   course              Course      @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
-  userProgress  UserProgress[]
+  userProgress        UserProgress[]
 
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
 
   @@index([courseId])
 }

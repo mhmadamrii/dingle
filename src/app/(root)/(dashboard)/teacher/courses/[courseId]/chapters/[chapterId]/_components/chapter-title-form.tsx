@@ -2,12 +2,15 @@
 
 import * as z from 'zod';
 import axios from 'axios';
+import toast from 'react-hot-toast';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Pencil } from 'lucide-react';
 import { useState } from 'react';
-import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { Input } from '~/components/ui/input';
+import { Button } from '~/components/ui/button';
 
 import {
   Form,
@@ -16,8 +19,6 @@ import {
   FormItem,
   FormMessage,
 } from '~/components/ui/form';
-import { Input } from '~/components/ui/input';
-import { Button } from '~/components/ui/button';
 
 interface ChapterTitleFormProps {
   initialData: {

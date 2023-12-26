@@ -27,6 +27,7 @@ export const CourseProgress = ({
       <Progress
         className="h-2"
         value={value}
+        // @ts-ignoreg
         variant={variant}
       />
       <p
