@@ -91,8 +91,6 @@ export async function DELETE(
       });
     }
 
-    revalidatePath('/teacher/courses/a6daa362-0ae8-4d55-85cf-5519d45baca3')
-
     return NextResponse.json({ messsage: "Success delete the resource", data: deletedChapter });
   } catch (error) {
     console.log('[CHAPTER_ID_DELETE]', error);

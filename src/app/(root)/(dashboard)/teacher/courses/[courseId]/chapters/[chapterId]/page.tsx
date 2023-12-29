@@ -41,6 +41,8 @@ const ChapterIdPage = async ({
     },
   });
 
+  console.log('chapternya', chapter);
+
   if (!chapter) {
     return redirect('/');
   }

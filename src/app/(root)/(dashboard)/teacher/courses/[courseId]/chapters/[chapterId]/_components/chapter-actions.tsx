@@ -22,6 +22,7 @@ export const ChapterActions = ({
   chapterId,
   isPublished,
 }: ChapterActionsProps) => {
+  console.log('disabled', disabled);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -42,7 +43,8 @@ export const ChapterActions = ({
       }
 
       router.refresh();
-    } catch {
+    } catch (error) {
+      console.log('error shit', error);
       toast.error('Something went wrong');
     } finally {
       setIsLoading(false);
@@ -58,9 +60,10 @@ export const ChapterActions = ({
       );
 
       toast.success('Chapter deleted');
-      router.refresh();
-      router.push(`/teacher/courses/${courseId}`);
-    } catch {
+      // router.refresh();
+      // router.push(`/teacher/courses/${courseId}`);
+    } catch (error) {
+      console.log('error', error);
       toast.error('Something went wrong');
     } finally {
       setIsLoading(false);
