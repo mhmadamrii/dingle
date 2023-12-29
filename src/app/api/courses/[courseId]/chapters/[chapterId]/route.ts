@@ -91,7 +91,10 @@ export async function DELETE(
       });
     }
 
-    return NextResponse.json({ messsage: "Success delete the resource", data: deletedChapter });
+    return NextResponse.json({
+      messsage: 'Success delete the resource',
+      data: deletedChapter,
+    });
   } catch (error) {
     console.log('[CHAPTER_ID_DELETE]', error);
     return new NextResponse('Internal Error', {

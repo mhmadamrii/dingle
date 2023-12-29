@@ -51,6 +51,8 @@ export default async function CourseId({
     },
   });
 
+  console.log('coursenya', course);
+
   const categories = await db.category.findMany({
     orderBy: {
       name: 'asc',
