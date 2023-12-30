@@ -1,4 +1,5 @@
 import { auth } from '@clerk/nextjs';
+import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { db } from '~/lib/db';
@@ -18,6 +19,8 @@ export async function POST(req: Request) {
     const course = await db.course.create({
       data: { title: reql.title, userId: userId },
     });
+
+    revalidatePath('/teacher/courses')
     return NextResponse.json({
       message: 'Hello success',
       result: course,

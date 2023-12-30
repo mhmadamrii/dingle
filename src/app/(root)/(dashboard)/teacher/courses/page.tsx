@@ -1,14 +1,32 @@
-export default function Courses() {
+import { auth } from '@clerk/nextjs';
+import { redirect } from 'next/navigation';
+
+import { db } from '~/lib/db';
+
+import { DataTable } from './_components/data-table';
+import { columns } from './_components/columns';
+
+const CoursesPage = async () => {
+  const { userId } = auth();
+
+  if (!userId) {
+    return redirect('/');
+  }
+
+  const courses = await db.course.findMany({
+    where: {
+      userId,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+
   return (
-    <div>
-      <h1>Welcome back</h1>
-      <span>
-        Lorem ipsum dolor, sit amet consectetur adipisicing
-        elit. Reiciendis omnis minima voluptatum cumque,
-        aliquid ullam provident odit, unde consequatur
-        molestiae vitae ut soluta sed maxime, ea alias
-        veritatis perferendis consequuntur!
-      </span>
+    <div className="p-6">
+      <DataTable columns={columns} data={courses} />
     </div>
   );
-}
+};
+
+export default CoursesPage;

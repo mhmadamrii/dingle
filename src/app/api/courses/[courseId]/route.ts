@@ -3,6 +3,7 @@ import Mux from '@mux/mux-node';
 import { NextResponse, NextRequest } from 'next/server';
 import { auth } from '@clerk/nextjs';
 import { db } from '~/lib/db';
+import { revalidatePath } from 'next/cache';
 
 const { Video } = new Mux(
   process.env.MUX_TOKEN_ID!,
@@ -52,6 +53,7 @@ export async function DELETE(
       },
     });
 
+    revalidatePath('/teacher/courses')
     return NextResponse.json(deletedCourse);
   } catch (error) {
     console.log(error);

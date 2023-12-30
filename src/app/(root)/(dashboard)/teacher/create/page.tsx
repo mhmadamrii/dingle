@@ -20,6 +20,7 @@ import {
   FormMessage,
   FormItem,
 } from '~/components/ui/form';
+import { revalidatePath } from 'next/cache';
 
 const formSchema = z.object({
   title: z.string().min(1, {
