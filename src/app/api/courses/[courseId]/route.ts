@@ -53,7 +53,7 @@ export async function DELETE(
       },
     });
 
-    revalidatePath('/teacher/courses')
+    revalidatePath('/teacher/courses');
     return NextResponse.json(deletedCourse);
   } catch (error) {
     console.log(error);

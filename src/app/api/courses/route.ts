@@ -20,7 +20,7 @@ export async function POST(req: Request) {
       data: { title: reql.title, userId: userId },
     });
 
-    revalidatePath('/teacher/courses')
+    revalidatePath('/teacher/courses');
     return NextResponse.json({
       message: 'Hello success',
       result: course,
