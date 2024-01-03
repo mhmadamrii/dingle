@@ -6,7 +6,6 @@ export async function PATCH(
   req: Request,
   { params }: { params: { courseId: string } },
 ) {
-  console.log('function triggered');
   try {
     const { userId } = auth();
     if (!userId) {

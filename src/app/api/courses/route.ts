@@ -7,10 +7,10 @@ import { isTeacher } from '~/lib/teacher';
 
 export async function POST(req: Request) {
   const reql = await req.json();
-  console.log('reql', reql);
   try {
     const { userId } = auth();
     console.log('user id', userId);
+
     if (!userId) {
       throw new NextResponse('Unauthenticated', {
         status: 400,
