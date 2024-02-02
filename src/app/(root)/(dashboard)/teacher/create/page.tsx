@@ -28,7 +28,7 @@ const formSchema = z.object({
   }),
 });
 
-const CreatePage = () => {
+export default function () {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -79,7 +79,8 @@ const CreatePage = () => {
                   <FormLabel>Course title</FormLabel>
                   <FormControl>
                     <Input
-                      disabled={isSubmitting}
+                      // disabled={isSubmitting}
+                      disabled
                       placeholder="e.g. 'Advanced web development'"
                       {...field}
                     />
@@ -109,6 +110,4 @@ const CreatePage = () => {
       </div>
     </div>
   );
-};
-
-export default CreatePage;
+}
