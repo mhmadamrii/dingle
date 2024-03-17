@@ -66,7 +66,8 @@ export const ChaptersForm = ({
       toast.success('Chapter created');
       toggleCreating();
       router.refresh();
-    } catch {
+    } catch (error) {
+      console.log('error', error);
       toast.error('Something went wrong');
     }
   };

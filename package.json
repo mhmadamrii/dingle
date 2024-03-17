@@ -10,7 +10,8 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "test:watch": "jest --watchAll",
-    "format": "npx prettier . --write"
+    "format": "npx prettier . --write",
+    "prisma:seed": "node src/scripts/seed.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.28.1",

@@ -36,6 +36,7 @@ export async function DELETE(
         },
       },
     });
+    console.log('course+++++', course);
 
     if (!course) {
       return new NextResponse('Not found', { status: 404 });

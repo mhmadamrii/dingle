@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
@@ -41,8 +41,10 @@ const SearchPage = async ({
         <SearchInput />
       </div>
       <div className="space-y-4 p-6">
-        <Categories items={categories} />
-        <CoursesList items={courses} />
+        <Suspense fallback={<span>Loading lists</span>}>
+          <Categories items={categories} />
+          <CoursesList items={courses} />
+        </Suspense>
       </div>
     </>
   );
