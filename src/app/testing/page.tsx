@@ -1,6 +1,6 @@
 import { Skeleton } from '~/components/ui/skeleton';
 
-export default function Loading() {
+export default function SkeletonCard() {
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center py-3 sm:flex-row md:flex-row">
       <div className="flex h-full w-full flex-col items-center justify-center gap-4 px-16">
